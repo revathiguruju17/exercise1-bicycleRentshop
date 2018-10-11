@@ -1,5 +1,7 @@
 package bicycleRentShop;
 
+
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 public class Bicycle {
@@ -12,8 +14,9 @@ public class Bicycle {
         this.rentPerHour = rentPerHour;
     }
 
-    double calculateRent(Bicycle bicycle, RentedTime rentedTime) {
-        double diffInMinutes = ChronoUnit.MINUTES.between(rentedTime.startTime, rentedTime.endTime);
+    double calculateRent(Bicycle bicycle, HiredInterval hiredInterval) {
+        hiredInterval.returnedTime = LocalDateTime.now();
+        double diffInMinutes = ChronoUnit.MINUTES.between(hiredInterval.hiredTime,hiredInterval.returnedTime);
         return diffInMinutes * bicycle.rentPerHour / 60;
     }
 
