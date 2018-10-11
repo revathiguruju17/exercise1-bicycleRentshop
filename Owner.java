@@ -8,10 +8,10 @@ import java.util.List;
 import java.util.Map;
 
 public class Owner {
-    List<Customer> customerList= new ArrayList<>();
-    List<Bicycle> bicycleList = new ArrayList<>();
+    private List<Customer> customerList= new ArrayList<>();
+    private List<Bicycle> bicycleList = new ArrayList<>();
 
-    public  void addBicyclesToTheBicyclesList() {
+    void addBicyclesToTheBicyclesList() {
         Bicycle bicycle1 = new Bicycle("bicycle1", 10);
         Bicycle bicycle2 = new Bicycle("bicycle2", 20);
         Bicycle bicycle3 = new Bicycle("bicycle3", 30);
@@ -24,7 +24,7 @@ public class Owner {
         bicycleList.add(bicycle5);
     }
 
-    public void addCustomersToTheCustomerList() {
+    void addCustomersToTheCustomerList() {
         String customerID = "customer1";
         List<Bicycle> rentedBicycleList = new ArrayList<>();
         List<RentedTime> rentedTimeList = new ArrayList<>();
@@ -39,11 +39,11 @@ public class Owner {
         customerList.add(customer1);
         }
 
-    public void rentABicycle(String customer1, String bicycle1, LocalDateTime startTime, LocalDateTime returnTime) {
-        Customer customer = getCustomer(customer1);
-        Bicycle bicycle = getBicycle(bicycle1);
+    public void rentABicycle(String customerID, String bicycleID, LocalDateTime startTime, LocalDateTime returnTime) {
+        Customer customer = getCustomer(customerID);
+        Bicycle bicycle = getBicycle(bicycleID);
         RentedTime  rentedTime = new RentedTime(startTime,returnTime);
-        customer.rentABicycle(bicycle,customer,rentedTime);
+        customer.rentBicycle(bicycle,customer,rentedTime);
         }
 
     private Bicycle getBicycle(String bicycle1) {
@@ -64,12 +64,27 @@ public class Owner {
         return null;
     }
 
+    public void displayTheListOfBicycles() {
+        for (Bicycle bicycle:bicycleList) {
+            bicycle.displayTheBicycle(bicycle);
+        }
+    }
+
+    public void returnABicycle(String customerID, String bicycleID) {
+        Customer customer =getCustomer(customerID);
+        customer.returnABicycle(customer,bicycleID);
+    }
+
+    public void hiredBicyclesByOneCustomer(String customerID) {
+        for (Customer customer:customerList) {
+            if(customer.customerID.equals(customerID)){
+                customer.getHiredBicycles(customer);
+            }
+        }
+    }
 }
 
 
 
 
-//LocalDateTime startTime = LocalDateTime.now();
-//LocalDateTime returnTime = LocalDateTime.of(2018,10,18,7,15);
-//RentedTime rentedTime = new RentedTime(startTime,returnTime);
-//customer.rentABicycle();
+

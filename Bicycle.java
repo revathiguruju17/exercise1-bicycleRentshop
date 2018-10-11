@@ -1,12 +1,10 @@
 package bicycleRentShop;
 
-
-import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 public class Bicycle {
     final String bicycleID;
-    private final int rentPerHour;
+    final int rentPerHour;
     private boolean isAvailable = true;
 
     Bicycle(String bicycleID, int rentPerHour) {
@@ -14,13 +12,19 @@ public class Bicycle {
         this.rentPerHour = rentPerHour;
     }
 
-    double calculateRent(Bicycle bicycle, LocalDateTime startingTime, LocalDateTime endingTime) {
-        double diffInMinutes = ChronoUnit.MINUTES.between(startingTime, endingTime);
+    double calculateRent(Bicycle bicycle, RentedTime rentedTime) {
+        double diffInMinutes = ChronoUnit.MINUTES.between(rentedTime.startTime, rentedTime.endTime);
         return diffInMinutes * bicycle.rentPerHour / 60;
     }
 
     void displayTheBicycle(Bicycle bicycle) {
-        System.out.println(bicycle.bicycleID + " " + bicycle.rentPerHour + "rs/hour " + isAvailable);
+        System.out.print(bicycle.bicycleID + "  " + bicycle.rentPerHour + "rs/hour  ");
+        if(bicycle.isAvailable){
+            System.out.println("available");
+        }
+        else {
+            System.out.println("Not available");
+        }
     }
 
     boolean getStatusOfBicycle(Bicycle bicycle) {
