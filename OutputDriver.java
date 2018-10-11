@@ -35,11 +35,15 @@ class OutputDriver {
 
     void printInvoice(String bicycleID, int rentPerHour, LocalDateTime hiredTime,
                       LocalDateTime returnedTime, double rentCost) {
-        System.out.println(bicycleID + "  " + rentPerHour + "  " + hiredTime
+        System.out.println(bicycleID + "  " + rentPerHour + "rs/hour  " + hiredTime
                 + "  " + returnedTime + "  " + rentCost);
     }
 
     void enterCustomerName() {
         System.out.println("enter customerID");
+    }
+
+    public void printTheCustomerID(String customerID) {
+        System.out.println(customerID);
     }
 }

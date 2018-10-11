@@ -16,6 +16,7 @@ public class Owner {
         bicycleList.add(bicycle3);
         bicycleList.add(bicycle4);
     }
+    OutputDriver outputDriver = new OutputDriver();
 
     void addCustomersToTheCustomerList() {
         String customerID = "customer1";
@@ -56,6 +57,7 @@ public class Owner {
 
     void displayAllTheCustomersHistory(Owner owner) {
         for (Customer customer : customerList) {
+            outputDriver.printTheCustomerID(customer.customerID);
             customer.getHiredBicycles(customer.customerID, owner);
         }
     }

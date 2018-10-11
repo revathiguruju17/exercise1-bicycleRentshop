@@ -32,7 +32,7 @@ class Customer {
     void returnBicycle(String customerID, String bicycleID, Owner owner) {
         Customer customer = owner.getCustomer(customerID);
         Bicycle bicycle1 = owner.getBicycle(bicycleID);
-        int i=0;
+        int i=-1;
         for (Bicycle bicycle : customer.hiredBicycles) {
             i++;
             if (bicycle.equals(bicycle1)) {

@@ -46,9 +46,11 @@ public class BicycleRentApplication {
                     outputDriver.enterCustomerName();
                     String customerID = inputDriver.scanUserInputAsString();
                     customer.getHiredBicycles(customerID,owner);
+                    break;
                 }
                 case 5: {
                     owner.displayAllTheCustomersHistory(owner);
+                    break;
                 }
                 case 6: {
                     return;
