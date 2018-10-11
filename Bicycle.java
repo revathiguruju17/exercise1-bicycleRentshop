@@ -7,27 +7,23 @@ import java.time.temporal.ChronoUnit;
 public class Bicycle {
     final String bicycleID;
     final int rentPerHour;
-    private boolean isAvailable = true;
+    boolean isAvailable = true;
 
     Bicycle(String bicycleID, int rentPerHour) {
         this.bicycleID = bicycleID;
         this.rentPerHour = rentPerHour;
     }
 
+    private OutputDriver outputDriver = new OutputDriver();
+
     double calculateRent(Bicycle bicycle, HiredInterval hiredInterval) {
         hiredInterval.returnedTime = LocalDateTime.now();
-        double diffInMinutes = ChronoUnit.MINUTES.between(hiredInterval.hiredTime,hiredInterval.returnedTime);
-        return diffInMinutes * bicycle.rentPerHour / 60;
+        double diffInSeconds = ChronoUnit.SECONDS.between(hiredInterval.hiredTime, hiredInterval.returnedTime);
+        return diffInSeconds * bicycle.rentPerHour/3600;
     }
 
     void displayTheBicycle(Bicycle bicycle) {
-        System.out.print(bicycle.bicycleID + "  " + bicycle.rentPerHour + "rs/hour  ");
-        if(bicycle.isAvailable){
-            System.out.println("available");
-        }
-        else {
-            System.out.println("Not available");
-        }
+        outputDriver.printBicycleDetails(bicycle.bicycleID,bicycle.rentPerHour,bicycle.isAvailable);
     }
 
     boolean getStatusOfBicycle(Bicycle bicycle) {
