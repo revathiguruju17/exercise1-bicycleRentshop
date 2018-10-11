@@ -16,19 +16,14 @@ public class Owner {
         bicycleList.add(bicycle3);
         bicycleList.add(bicycle4);
     }
-    OutputDriver outputDriver = new OutputDriver();
+    private OutputDriver outputDriver = new OutputDriver();
 
-    void addCustomersToTheCustomerList() {
-        String customerID = "customer1";
+    Customer addCustomersToTheCustomerList(String customerID) {
         List<Bicycle> rentedBicycleList = new ArrayList<>();
         List<HiredInterval> rentedTimeList = new ArrayList<>();
         Customer customer = new Customer(customerID, rentedBicycleList, rentedTimeList);
         customerList.add(customer);
-        String customerID1 = "customer2";
-        List<Bicycle> rentedBicycleList1 = new ArrayList<>();
-        List<HiredInterval> rentedTimeList1 = new ArrayList<>();
-        Customer customer1 = new Customer(customerID1, rentedBicycleList1, rentedTimeList1);
-        customerList.add(customer1);
+        return customer;
     }
 
     Bicycle getBicycle(String bicycle1) {
@@ -37,7 +32,7 @@ public class Owner {
                 return bicycle;
             }
         }
-        return null;
+        return  null;
     }
 
      Customer getCustomer(String customer1) {
@@ -46,7 +41,7 @@ public class Owner {
                 return customer;
             }
         }
-        return null;
+        return addCustomersToTheCustomerList(customer1);
     }
 
     void displayTheListOfBicycles() {

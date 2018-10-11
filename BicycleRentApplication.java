@@ -4,14 +4,12 @@ public class BicycleRentApplication {
     public static void main(String[] args) {
         Owner owner = new Owner();
         OutputDriver outputDriver = new OutputDriver();
-        Customer customer = new Customer(null, null, null);
         owner.addBicyclesToTheBicyclesList();
-        owner.addCustomersToTheCustomerList();
         outputDriver.printMenu();
-        doAct(owner, customer);
+        doAct(owner);
     }
 
-    private static void doAct(Owner owner, Customer customer) {
+    private static void doAct(Owner owner) {
         OutputDriver outputDriver = new OutputDriver();
         InputDriver inputDriver = new InputDriver();
         int option;
@@ -26,6 +24,7 @@ public class BicycleRentApplication {
                     outputDriver.customerAndBicycleDetails();
                     String customerID = inputDriver.scanUserInputAsString();
                     String bicycleID = inputDriver.scanUserInputAsString();
+                    Customer customer = owner.getCustomer(customerID);
                     customer.rentBicycle(customerID, bicycleID, owner);
                     break;
                 }
@@ -33,6 +32,7 @@ public class BicycleRentApplication {
                     outputDriver.customerAndBicycleDetails();
                     String customerID = inputDriver.scanUserInputAsString();
                     String bicycleID = inputDriver.scanUserInputAsString();
+                    Customer customer =owner.getCustomer(customerID);
                     customer.returnBicycle(customerID, bicycleID, owner);
                     outputDriver.askUserAboutInvoice();
                     String userChoice = inputDriver.scanUserInputAsString();
@@ -45,6 +45,7 @@ public class BicycleRentApplication {
                 case 4: {
                     outputDriver.enterCustomerName();
                     String customerID = inputDriver.scanUserInputAsString();
+                    Customer customer = owner.getCustomer(customerID);
                     customer.getHiredBicycles(customerID,owner);
                     break;
                 }
@@ -56,6 +57,6 @@ public class BicycleRentApplication {
                     return;
                 }
             }
-        } while (option != 6);
+        } while (option<6 && option>0);
     }
 }

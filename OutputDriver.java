@@ -43,7 +43,7 @@ class OutputDriver {
         System.out.println("enter customerID");
     }
 
-    public void printTheCustomerID(String customerID) {
+    void printTheCustomerID(String customerID) {
         System.out.println(customerID);
     }
 }
