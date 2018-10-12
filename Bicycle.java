@@ -3,12 +3,11 @@ package bicycleRentShop;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.Objects;
 
 public class Bicycle {
-    final String bicycleID;
-    final int rentPerHour;
-    boolean isAvailable = true;
+     String bicycleID;
+     int rentPerHour;
+    private boolean isAvailable = true;
 
     Bicycle(String bicycleID, int rentPerHour) {
         this.bicycleID = bicycleID;
@@ -39,19 +38,14 @@ public class Bicycle {
         }
     }
 
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Bicycle)) return false;
-        Bicycle bicycle = (Bicycle) o;
-        return rentPerHour == bicycle.rentPerHour &&
-                isAvailable == bicycle.isAvailable &&
-                Objects.equals(bicycleID, bicycle.bicycleID);
+    boolean compareTobicycleObjects(Bicycle bicycle1, Bicycle bicycle2){
+        if(bicycle1.equals(bicycle2)){
+            return true;
+        }
+        return false;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(bicycleID, rentPerHour, isAvailable);
+    String displayTheHiredBicycleForInvoice(Bicycle bicycle) {
+        return bicycle.bicycleID+"  "+bicycle.rentPerHour;
     }
 }

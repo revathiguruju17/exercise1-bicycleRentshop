@@ -6,16 +6,18 @@ import java.util.List;
 public class Owner {
     private List<Customer> customerList = new ArrayList<>();
     private List<Bicycle> bicycleList = new ArrayList<>();
+
     void addBicyclesToTheBicyclesList() {
-        Bicycle bicycle1 = new Bicycle("bicycle1", 3600);
-        Bicycle bicycle2 = new Bicycle("bicycle2", 7200);
-        Bicycle bicycle3 = new Bicycle("bicycle3", 36000);
-        Bicycle bicycle4 = new Bicycle("bicycle4", 72000);
+        Bicycle bicycle1 = new Bicycle("bicycle1", 360);
+        Bicycle bicycle2 = new Bicycle("bicycle2", 420);
+        Bicycle bicycle3 = new Bicycle("bicycle3", 360);
+        Bicycle bicycle4 = new Bicycle("bicycle4", 480);
         bicycleList.add(bicycle1);
         bicycleList.add(bicycle2);
         bicycleList.add(bicycle3);
         bicycleList.add(bicycle4);
     }
+
     private OutputDriver outputDriver = new OutputDriver();
 
     private Customer addCustomersToTheCustomerList(String customerID) {
@@ -32,10 +34,10 @@ public class Owner {
                 return bicycle;
             }
         }
-        return  null;
+        return null;
     }
 
-     Customer getCustomer(String customer1) {
+    Customer getCustomer(String customer1) {
         for (Customer customer : customerList) {
             if (customer.customerID.equals(customer1)) {
                 return customer;
@@ -60,17 +62,11 @@ public class Owner {
     void generateInvoice(String customerID, String bicycleID) {
         Customer customer = getCustomer(customerID);
         Bicycle bicycle = getBicycle(bicycleID);
-        for (int i = 0; i < customer.hiredBicycles.size(); i++) {
-            if (customer.hiredBicycles.get(i).equals(bicycle)) {
-                double rentCost = bicycle.calculateRent(bicycle, customer.hiredIntervalList.get(i));
-                outputDriver.printInvoice(bicycle.bicycleID, bicycle.rentPerHour, customer.hiredIntervalList.get(i).hiredTime,
-                        customer.hiredIntervalList.get(i).returnedTime, rentCost);
-                break;
-            }
-        }
+        String invoiceDetails =customer.getDetailsOfCustomer(customer, bicycle);
+        outputDriver.displayTheInvoice(invoiceDetails);
     }
 
-     String permissionFromOwnerToHireABicycle() {
+    String permissionFromOwnerToHireABicycle() {
         return "yes";
     }
 }

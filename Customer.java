@@ -5,31 +5,36 @@ import java.util.List;
 
 class Customer {
     final String customerID;
-    List<Bicycle> hiredBicycles;
-    List<HiredInterval> hiredIntervalList;
+    private List<Bicycle> hiredBicycles;
+    private List<HiredInterval> hiredIntervals;
 
-    Customer(String customerID, List<Bicycle> hiredBicycles, List<HiredInterval> hiredIntervalList) {
+    Customer(String customerID, List<Bicycle> hiredBicycles, List<HiredInterval> hiredIntervals) {
         this.customerID = customerID;
         this.hiredBicycles = hiredBicycles;
-        this.hiredIntervalList = hiredIntervalList;
+        this.hiredIntervals = hiredIntervals;
     }
 
     private OutputDriver outputDriver = new OutputDriver();
 
-
     void returnBicycle(String customerID, String bicycleID, Owner owner) {
         Customer customer = owner.getCustomer(customerID);
         Bicycle bicycle1 = owner.getBicycle(bicycleID);
-        int i=-1;
+        int index = -1;
         for (Bicycle bicycle : customer.hiredBicycles) {
-            i++;
-            if (bicycle.equals(bicycle1)) {
-                bicycle.setStatusOfBicycle(bicycle);
-                customer.hiredIntervalList.get(i).returnedTime=LocalDateTime.now();
-                break;
+            index++;
+            boolean compareToObjects = bicycle.compareTobicycleObjects(bicycle1, bicycle);
+            if (compareToObjects) {
+                updateCustomerDetailsAfterReturningTheBicycle(bicycle, customer, index);
+                return;
             }
         }
+        outputDriver.invalidBicycleToReturn();
+    }
 
+    private void updateCustomerDetailsAfterReturningTheBicycle(Bicycle bicycle, Customer customer, int index) {
+        bicycle.setStatusOfBicycle(bicycle);
+        customer.hiredIntervals.get(index).returnedTime = LocalDateTime.now();
+        customer.hiredIntervals.get(index).rentedCost = bicycle.calculateRent(bicycle, hiredIntervals.get(index));
     }
 
     void getHiredBicycles(String customerID, Owner owner) {
@@ -44,12 +49,29 @@ class Customer {
         Bicycle bicycle = owner.getBicycle(bicycleID);
         boolean statusOfBicycle = bicycle.getStatusOfBicycle(bicycle);
         if (statusOfBicycle) {
-            customer.hiredBicycles.add(bicycle);
-            customer.hiredIntervalList.add(new HiredInterval(LocalDateTime.now(),LocalDateTime.now()));
-            bicycle.setStatusOfBicycle(bicycle);
-        } else {
-            outputDriver.displayTheBicycleStatusAsUnavailable();
+            updateCustomerDetailsAfterHiringABicycle(bicycle, customer);
+            return;
         }
+        outputDriver.displayTheBicycleStatusAsUnavailable();
+    }
+
+    private void updateCustomerDetailsAfterHiringABicycle(Bicycle bicycle, Customer customer) {
+        customer.hiredBicycles.add(bicycle);
+        customer.hiredIntervals.add(new HiredInterval(LocalDateTime.now(), LocalDateTime.now(), 0.0));
+        bicycle.setStatusOfBicycle(bicycle);
+    }
+
+    String getDetailsOfCustomer(Customer customer, Bicycle bicycle) {
+        for (int i = 0; i < customer.hiredBicycles.size(); i++) {
+            Bicycle bicycle1 = customer.hiredBicycles.get(i);
+            if (bicycle.compareTobicycleObjects(bicycle1, bicycle)) {
+                HiredInterval hiredInterval = customer.hiredIntervals.get(i);
+                String bicycleDetails = bicycle1.displayTheHiredBicycleForInvoice(bicycle1);
+                String hiredDetails = hiredInterval.returnAsStringHiredInterval(hiredInterval);
+                return bicycleDetails+hiredDetails;
+            }
+        }
+        return null;
     }
 }
 

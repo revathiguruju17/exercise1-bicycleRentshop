@@ -1,7 +1,5 @@
 package bicycleRentShop;
 
-import java.time.LocalDateTime;
-
 class OutputDriver {
     void printMenu() {
         System.out.println("Press 1 to see the menu");
@@ -34,12 +32,6 @@ class OutputDriver {
         System.out.println("The bicycle is currently not available");
     }
 
-    void printInvoice(String bicycleID, int rentPerHour, LocalDateTime hiredTime,
-                      LocalDateTime returnedTime, double rentCost) {
-        System.out.println(bicycleID + "  " + rentPerHour + "rs/hour  " + hiredTime
-                + "  " + returnedTime + "  " + rentCost);
-    }
-
     void enterCustomerName() {
         System.out.println("enter customerID");
     }
@@ -48,7 +40,15 @@ class OutputDriver {
         System.out.println(customerID);
     }
 
-    public void intimateUserAboutOwnerDecisionForHiringABicycle() {
+    void intimateUserAboutOwnerDecisionForHiringABicycle() {
         System.out.println("Sorry you can't hire a bicycle");
+    }
+
+    void invalidBicycleToReturn() {
+        System.out.println("You are trying to return the bicycle is not hired by you. Please check the bicycle name");
+    }
+
+    void displayTheInvoice(String invoiceDetails) {
+        System.out.println(invoiceDetails);
     }
 }
