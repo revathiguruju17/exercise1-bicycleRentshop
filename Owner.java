@@ -18,7 +18,7 @@ public class Owner {
     }
     private OutputDriver outputDriver = new OutputDriver();
 
-    Customer addCustomersToTheCustomerList(String customerID) {
+    private Customer addCustomersToTheCustomerList(String customerID) {
         List<Bicycle> rentedBicycleList = new ArrayList<>();
         List<HiredInterval> rentedTimeList = new ArrayList<>();
         Customer customer = new Customer(customerID, rentedBicycleList, rentedTimeList);
@@ -55,6 +55,23 @@ public class Owner {
             outputDriver.printTheCustomerID(customer.customerID);
             customer.getHiredBicycles(customer.customerID, owner);
         }
+    }
+
+    void generateInvoice(String customerID, String bicycleID) {
+        Customer customer = getCustomer(customerID);
+        Bicycle bicycle = getBicycle(bicycleID);
+        for (int i = 0; i < customer.hiredBicycles.size(); i++) {
+            if (customer.hiredBicycles.get(i).equals(bicycle)) {
+                double rentCost = bicycle.calculateRent(bicycle, customer.hiredIntervalList.get(i));
+                outputDriver.printInvoice(bicycle.bicycleID, bicycle.rentPerHour, customer.hiredIntervalList.get(i).hiredTime,
+                        customer.hiredIntervalList.get(i).returnedTime, rentCost);
+                break;
+            }
+        }
+    }
+
+     String permissionFromOwnerToHireABicycle() {
+        return "yes";
     }
 }
 

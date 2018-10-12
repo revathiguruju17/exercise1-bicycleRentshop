@@ -16,18 +16,6 @@ class Customer {
 
     private OutputDriver outputDriver = new OutputDriver();
 
-    void generateInvoice(String customerID, String bicycleID, Owner owner) {
-        Customer customer = owner.getCustomer(customerID);
-        Bicycle bicycle = owner.getBicycle(bicycleID);
-        for (int i = 0; i < customer.hiredBicycles.size(); i++) {
-            if (customer.hiredBicycles.get(i).equals(bicycle)) {
-                double rentCost = bicycle.calculateRent(bicycle, customer.hiredIntervalList.get(i));
-                outputDriver.printInvoice(bicycle.bicycleID, bicycle.rentPerHour, customer.hiredIntervalList.get(i).hiredTime,
-                        customer.hiredIntervalList.get(i).returnedTime, rentCost);
-                break;
-            }
-        }
-    }
 
     void returnBicycle(String customerID, String bicycleID, Owner owner) {
         Customer customer = owner.getCustomer(customerID);
@@ -47,7 +35,7 @@ class Customer {
     void getHiredBicycles(String customerID, Owner owner) {
         Customer customer = owner.getCustomer(customerID);
         for (int i = 0; i < customer.hiredBicycles.size(); i++) {
-            generateInvoice(customer.customerID, customer.hiredBicycles.get(i).bicycleID, owner);
+            owner.generateInvoice(customer.customerID, customer.hiredBicycles.get(i).bicycleID);
         }
     }
 
@@ -60,7 +48,7 @@ class Customer {
             customer.hiredIntervalList.add(new HiredInterval(LocalDateTime.now(),LocalDateTime.now()));
             bicycle.setStatusOfBicycle(bicycle);
         } else {
-            outputDriver.displayTheBicycleStatusAsInavailable();
+            outputDriver.displayTheBicycleStatusAsUnavailable();
         }
     }
 }
