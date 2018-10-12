@@ -10,13 +10,13 @@ public class ApplicationDriver {
     private static final int OWNER_HISTORY = 6;
     private static final int QUIT = 7;
 
-    void startApplication(Owner owner) {
+    static void startApplication(Owner owner) {
         OutputDriver outputDriver = new OutputDriver();
         outputDriver.printMenu();
         doCustomerRequest(owner);
     }
 
-    private void doCustomerRequest(Owner owner) {
+    private static void doCustomerRequest(Owner owner) {
         OutputDriver outputDriver = new OutputDriver();
         InputDriver inputDriver = new InputDriver();
         int option;
@@ -62,7 +62,7 @@ public class ApplicationDriver {
         } while (option < 7 && option > 0);
     }
 
-    private void returningProcess(Owner owner, InputDriver inputDriver, OutputDriver outputDriver) {
+    private static void returningProcess(Owner owner, InputDriver inputDriver, OutputDriver outputDriver) {
         outputDriver.customerAndBicycleDetails();
         String customerID = inputDriver.scanUserInputAsString();
         String bicycleID = inputDriver.scanUserInputAsString();
@@ -71,7 +71,7 @@ public class ApplicationDriver {
         askCustomerForInvoice(customerID, bicycleID, owner, inputDriver, outputDriver);
     }
 
-    private void askCustomerForInvoice(String customerID, String bicycleID, Owner owner,
+    private static void askCustomerForInvoice(String customerID, String bicycleID, Owner owner,
                                        InputDriver inputDriver, OutputDriver outputDriver) {
         outputDriver.askUserAboutInvoice();
         String userChoice = inputDriver.scanUserInputAsString();
@@ -80,7 +80,7 @@ public class ApplicationDriver {
         }
     }
 
-    private void hiringProcess(Owner owner, InputDriver inputDriver, OutputDriver outputDriver) {
+    private static void hiringProcess(Owner owner, InputDriver inputDriver, OutputDriver outputDriver) {
         outputDriver.customerAndBicycleDetails();
         String customerID = inputDriver.scanUserInputAsString();
         String bicycleID = inputDriver.scanUserInputAsString();

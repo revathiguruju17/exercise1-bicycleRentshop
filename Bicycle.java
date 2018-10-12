@@ -6,7 +6,7 @@ import java.time.temporal.ChronoUnit;
 
 public class Bicycle {
      String bicycleID;
-     int rentPerHour;
+     private int rentPerHour;
     private boolean isAvailable = true;
 
     Bicycle(String bicycleID, int rentPerHour) {

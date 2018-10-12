@@ -5,8 +5,8 @@ import java.util.List;
 
 class Customer {
     final String customerID;
-    private List<Bicycle> hiredBicycles;
-    private List<HiredInterval> hiredIntervals;
+    private  List<Bicycle> hiredBicycles;
+    private  List<HiredInterval> hiredIntervals;
 
     Customer(String customerID, List<Bicycle> hiredBicycles, List<HiredInterval> hiredIntervals) {
         this.customerID = customerID;
